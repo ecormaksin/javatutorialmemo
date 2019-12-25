@@ -57,3 +57,38 @@ OuterClass.StaticNestedClass nestedObject = new OuterClass.StaticNestedClass();
 OuterClass outerObject = new OuterClass();
 OuterClass.InnerClass innerObject = outerObject.new InnerClass();
 ```
+
+### インナー クラスの2つの特別な種類
+
+- [ローカル クラス](./local_classes.md)
+- [匿名クラス](./anonymous_classes.md)
+
+## Shadowing(シャドゥイング)
+
+特定のスコープ（インナー クラスやメソッド定義）で、型の定義（メンバー変数やパラメーター名）がアウター クラスの別の定義と同じ名前の場合、インナー クラスの定義がアウター クラスの定義を隠してしまう。隠れてしまった定義を名前だけで参照できない。
+
+```java
+public class ShadowTest {
+    public int x = 0;
+
+    class FirstLevel {
+        public int x = 1;
+
+        void methodInFirstLevel(int x) {
+            System.out.println("x = " + x); // 23
+            System.out.println("this.x = " + this.x); // 1
+            System.out.println("ShadowTest.this.x = " + ShadowTest.this.x); // 0
+        }
+    }
+
+    public static void main(String... args) {
+        ShadowTest st = new ShadowTest();
+        ShadowTest.FirstLevel fl = st.new FirstLevel();
+        fl.methodInFirstLevel(23);
+    }
+}
+```
+
+## Serialization(シリアル化)
+
+[ローカル クラス](./local_classes.md) や [匿名クラス](./anonymous_classes.md) を含むインナー クラスの[シリアル化](../../jndi/objects/serial.md)は極めて非推奨とされている。Javaコンパイラーがインナー クラスのようなある構成物をコンパイルする時、_合成構成物(synthetic constructs)_ が生成される。ソース コードとは対応しないクラス、メソッド、フィールドや他の構成物がある。合成構成物により、JVMを変えることなく新しいJavaの言語機能をJavaコンパイラーが実装できる。しかし、合成構成物はJavaコンパイラーの実装によって異なる。つまり、`.class`ファイルが異なる可能性がある。その結果、インナー クラスをシリアル化し、異なるJREの実装でデシリアル化する場合に、互換性の問題が発生するかもしれない。インナー クラスがコンパイルされた時に生成される合成構成物に関する詳細は、「[メソッド パラメーターの名前を取得する](../../reflect/member/methodparameterreflection.md)」の「[暗黙と合成パラメーター](../../reflect/member/methodparameterreflection.md#implcit_and_synthetic)」のセクションを参照のこと。
