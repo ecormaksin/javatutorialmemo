@@ -1,1 +1,0 @@
-# Serializable Objects(シリアル化可能なオブジェクト)
