@@ -40,3 +40,9 @@ I/O from the Command Line
 │├Standard Output: System.out
 │└Standard Error: System.err
 └Console
+
+Data Streams: プリミティブ型とString型のバイナリーI/Oをサポート
+├DataInput
+│└DataInputStream
+└DataOutput
+ └DataOutputStream
