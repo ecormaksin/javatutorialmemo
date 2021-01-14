@@ -46,3 +46,12 @@ Data Streams: プリミティブ型とString型のバイナリーI/Oをサポー
 │└DataInputStream
 └DataOutput
  └DataOutputStream
+
+Object Streams: オブジェクトのI/Oをサポート
+├DataInput
+│└ObjectInput
+│ └ObjectInputStream
+└DataOutput
+ └ObjectOutput
+  └ObjectOutputStream
+
