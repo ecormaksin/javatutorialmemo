@@ -54,4 +54,3 @@ Object Streams: オブジェクトのI/Oをサポート
 └DataOutput
  └ObjectOutput
   └ObjectOutputStream
-
